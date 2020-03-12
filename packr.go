@@ -12,6 +12,9 @@ import (
 var gil = &sync.Mutex{}
 var data = map[string]map[string][]byte{}
 
+var gil2 = &sync.Mutex{}
+var loaders = map[string]func(){}
+
 // PackBytes packs bytes for a file into a box.
 func PackBytes(box string, name string, bb []byte) {
 	gil.Lock()
@@ -47,6 +50,12 @@ func PackJSONBytes(box string, name string, jbb string) error {
 	}
 	PackBytes(box, name, bb)
 	return nil
+}
+
+func PackBoxLoader(box string, loader func()) {
+	gil2.Lock()
+	defer gil2.Unlock()
+	loaders[box] = loader
 }
 
 // UnpackBytes unpacks bytes for specific box.

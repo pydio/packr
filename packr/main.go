@@ -14,7 +14,7 @@
 
 package main
 
-import "github.com/gobuffalo/packr/packr/cmd"
+import "github.com/pydio/packr/packr/cmd"
 
 func main() {
 	cmd.Execute()
