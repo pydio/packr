@@ -82,7 +82,7 @@ func Test_Box_find(t *testing.T) {
 	for _, tt := range table {
 		t.Run(tt.name, func(st *testing.T) {
 			r := require.New(st)
-			_, err := box.find(tt.name)
+			_, err := box.find(tt.name, false)
 			if tt.found {
 				r.True(box.Has(tt.name))
 				r.NoError(err)
@@ -96,9 +96,9 @@ func Test_Box_find(t *testing.T) {
 
 func Test_Virtual_Directory_Not_Found(t *testing.T) {
 	r := require.New(t)
-	_, err := virtualBox.find("d")
+	_, err := virtualBox.find("d", false)
 	r.NoError(err)
-	_, err = virtualBox.find("does-not-exist")
+	_, err = virtualBox.find("does-not-exist", false)
 	r.Error(err)
 }
 
